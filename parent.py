@@ -4,7 +4,7 @@ class Parent:
     header = '<parent xmins="http://exemple.org" xmlns:svg="http://www.w3.org/2000/svg">'
     footer = '</parent>'
     children = []
-    indent 
+    indent = 0
 
     def __init__(self, indent):
         self.indent = indent
@@ -12,8 +12,10 @@ class Parent:
     def add(self,child):
         children.append(child)
 
-    def print(self):
-        print header
-        for child in children:
-            child.print(self.indent)
-        print footer
+    def contents(self):
+        contents = []
+        contents.append(self.header)
+        for child in self.children:
+            contents.extend(child.contents(self.indent))
+        contents.append(self.footer)
+        return contents
