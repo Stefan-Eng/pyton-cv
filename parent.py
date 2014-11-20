@@ -1,21 +1,25 @@
 
 class Parent:
 
-    header = '<parent xmins="http://exemple.org" xmlns:svg="http://www.w3.org/2000/svg">'
-    footer = '</parent>'
-    children = []
-    indent = 0
-
     def __init__(self, indent):
         self.indent = indent
+        self.children = []
+        self.header = '<parent xmins="http://exemple.org" xmlns:svg="http://www.w3.org/2000/svg">'
+        self.footer = '</parent>'
 
     def add(self,child):
-        children.append(child)
+        self.children.append(child)
 
-    def contents(self):
-        contents = []
-        contents.append(self.header)
+    def content(self, indent=None):
+
+        content_list = []
+
+        if not indent:
+            indent = self.indent
+        content_list.append(self.header)
         for child in self.children:
-            contents.extend(child.contents(self.indent))
-        contents.append(self.footer)
-        return contents
+            content_list.extend(child.content(self.indent+indent))
+        content_list.append(self.footer)
+        if self.indent != indent:
+            content_list = [" "*self.indent+item for item in content_list]
+        return content_list
