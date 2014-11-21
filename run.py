@@ -1,4 +1,4 @@
-from parent import Parent
+from structure import Parent
 
 def main():
 
