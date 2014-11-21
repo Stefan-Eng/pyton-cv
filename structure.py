@@ -1,6 +1,8 @@
 class NestingDoll:
 
-    def __init__(self, header="", footer="", indent=2):
+    master_indent = 2
+
+    def __init__(self, header="", footer="", indent=master_indent):
         self.children = []
         self.header = header
         self.footer = footer
@@ -17,7 +19,7 @@ class NestingDoll:
         for child in self.children:
             content.extend(child.content(indent=indent+indent))
         content.append(self.footer)
-        indent_level = ((indent/2) - 1) * 2
+        indent_level = ((indent/self.master_indent) - 1) * self.master_indent
         adjusted_content = [(" "*indent_level)+item for item in content]
         return adjusted_content
 
