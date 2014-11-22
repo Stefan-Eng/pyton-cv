@@ -16,7 +16,7 @@ class Canvas(NestingDoll):
         NestingDoll.__init__(self, header=header, footer=footer)
         self.height = height
         self.width = width
-        self.center = NestingDoll.Center(width/2, height/2)
+        self.center = NestingDoll.Center(width/2.0, height/2.0)
 
         background = Rectangle(self.center.x, self.center.y, width, height,
                                fill="white",stroke="none")

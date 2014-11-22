@@ -3,7 +3,7 @@ from base_classes import NestingDoll
 class Rectangle(NestingDoll): 
 
     def __init__(self, x, y, width, height, **kwargs):
-        self.center = NestingDoll.Center(width/2,height/2)
+        self.center = NestingDoll.Center(width/2.0,height/2.0)
         self.x , self.y = self.center_coordinates(x,y)
         self.width = width
         self.height = height
