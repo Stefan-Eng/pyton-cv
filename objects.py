@@ -10,17 +10,16 @@ class Rectangle(NestingDoll):
 
         if kwargs:
             self.kwargs = kwargs
-        else:
-            self.kwargs = None
+        else: # Set default Rectangle appearance. 
+            self.kwargs = {"fill": "none",
+                           "stroke": "black",
+                           "stroke-width": "0.02"}
 
         self.attributes = []
-        length_values = ["x","y","width","height"]
 
         for attribute, value in vars(self).items():
-            if attribute in ["kwargs",'attributes']:
+            if attribute in ["kwargs",'attributes','center']:
                 continue
-            if attribute in length_values:
-                value = self.length_value(str(value))
             self.append_attribute(attribute, value)
 
         if self.kwargs:
@@ -32,6 +31,9 @@ class Rectangle(NestingDoll):
         NestingDoll.__init__(self, header=header)
 
     def append_attribute(self, attribute, value):
+        length_values = ["x","y","width","height", "stroke-width"]
+        if attribute in length_values:
+            value = self.length_value(value)
         self.attributes.append('{}="{}"'.format(attribute, value))
 
     def length_value(self, string):
