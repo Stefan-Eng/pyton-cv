@@ -3,11 +3,10 @@ from base_classes import NestingDoll
 class Rectangle(NestingDoll): 
 
     def __init__(self, x, y, width, height, **kwargs):
-        self.x = x
-        self.y = y
+        self.center = NestingDoll.Center(width/2,height/2)
+        self.x , self.y = self.center_coordinates(x,y)
         self.width = width
         self.height = height
-        self.center = NestingDoll.Center(width/2,height/2)
 
         if kwargs:
             self.kwargs = kwargs
@@ -37,6 +36,11 @@ class Rectangle(NestingDoll):
 
     def length_value(self, string):
         return "{}cm".format(string)
+
+    def center_coordinates(self, x, y):
+        x = x - self.center.x
+        y = y - self.center.y
+        return (x, y)
 
     def add(self, child):
         raise AttributeError("add(child) not supported by Rectangle.")
