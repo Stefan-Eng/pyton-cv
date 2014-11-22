@@ -13,7 +13,7 @@ class Rectangle(NestingDoll):
                                         "y":self.y},
                        "bottom-left":{  "x":self.x,
                                         "y":self.y+height},
-                       "bottom_right":{ "x":self.x+width,
+                       "bottom-right":{ "x":self.x+width,
                                         "y":self.y+height}}
 
         if kwargs:
