@@ -7,6 +7,14 @@ class Rectangle(NestingDoll):
         self.x , self.y = self.center_coordinates(x,y)
         self.width = width
         self.height = height
+        self.corners = {"top-left":{    "x":self.x,
+                                        "y":self.y},
+                       "top-right":{    "x":self.x+width,
+                                        "y":self.y},
+                       "bottom-left":{  "x":self.x,
+                                        "y":self.y+height},
+                       "bottom_right":{ "x":self.x+width,
+                                        "y":self.y+height}}
 
         if kwargs:
             self.kwargs = kwargs
@@ -18,7 +26,7 @@ class Rectangle(NestingDoll):
         self.attributes = []
 
         for attribute, value in vars(self).items():
-            if attribute in ["kwargs",'attributes','center']:
+            if attribute in ["kwargs",'attributes','center', 'corners']:
                 continue
             self.append_attribute(attribute, value)
 
