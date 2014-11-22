@@ -21,7 +21,7 @@ class NestingDoll:
         if self.header:
             content.append(self.header)
         for child in self.children:
-            content.extend(child.content(indent=indent+indent))
+            content.extend(child.content(self.indent+self.master_indent))
         if self.footer:
             content.append(self.footer)
         indent_level = ((indent/self.master_indent) - 1) * self.master_indent
