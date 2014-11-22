@@ -11,9 +11,15 @@ class Parent(NestingDoll):
 class Canvas(NestingDoll):
 
     def __init__(self, width, height):
-        header='<svg width="{}cm" height="{}cm">'.format(width, height)
+        #xml_header = '<?xml version="1.0" standalone="no"?>'
+        #doctype_start = '!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"'
+        #doctype_address = '"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"'
+        #doctype_header = "<{} {}>".format(doctype_start, doctype_address)
+        svg_header = '<svg width="{}cm" height="{}cm">'.format(width, height)
+        #header_list = [xml_header, doctype_header, svg_header]
+        #header = "\n".join(header_list)
         footer='</svg>'
-        NestingDoll.__init__(self, header=header, footer=footer)
+        NestingDoll.__init__(self, header=svg_header, footer=footer)
         self.height = height
         self.width = width
         self.center = NestingDoll.Center(width/2.0, height/2.0)
