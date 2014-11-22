@@ -16,6 +16,25 @@ class Rectangle(NestingDoll):
                        "bottom-right":{ "x":self.x+width,
                                         "y":self.y+height}}
 
+        self.sides = {"left":{"top":self.corners["top-left"],
+                              "bottom":self.corners["bottom-left"]},
+                      "top":{ "left":self.corners["top-left"],
+                              "right":self.corners["top-right"]},
+                      "right":{"top":self.corners["top-right"],
+                              "bottom":self.corners["bottom-right"]},
+                      "bottom":{"left":self.corners["bottom-left"],
+                              "right":self.corners["bottom-right"]}}
+
+        for _, points in self.sides.items(): # Ignore side-name.
+            first = points.values()[0]
+            second = points.values()[1]
+            y = [first["y"],second["y"]]
+            x = [first["x"],second["x"]]
+            xdiff = (max(x)-min(x))/2.0
+            ydiff = (max(y)-min(y))/2.0
+            points["middle"] = {"x":max(x) - xdiff,
+                                "y":max(y) - ydiff}
+
         if kwargs:
             self.kwargs = kwargs
         else: # Set default Rectangle appearance. 
@@ -26,7 +45,9 @@ class Rectangle(NestingDoll):
         self.attributes = []
 
         for attribute, value in vars(self).items():
-            if attribute in ["kwargs",'attributes','center', 'corners']:
+            if attribute in ["kwargs",'attributes',
+                             'center', 'corners',
+                             'sides']:
                 continue
             self.append_attribute(attribute, value)
 
