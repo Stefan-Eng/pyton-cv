@@ -1,5 +1,5 @@
 from structure import Parent,Canvas
-from objects import Rectangle
+from objects import Rectangle, Line
 
 def main():
 
@@ -17,6 +17,13 @@ def main():
         middle_coordinates.update(side_cube_style)
         sub_rectangle = Rectangle(width=1, height=1, **middle_coordinates)
         rectangle.add(sub_rectangle)
+
+    line = Line(canvas.corners["top-left"],canvas.corners["bottom-right"],
+                width="0.02")
+    line2 = Line(canvas.corners["bottom-left"],canvas.corners["top-right"],
+                width="0.02")
+    canvas.add(line)
+    canvas.add(line2)
 
     print '\n'.join(canvas.content())
 
