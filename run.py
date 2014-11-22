@@ -8,6 +8,9 @@ def main():
     parent.add(canvas)
     centerx, centery = canvas.center
     rectangle = Rectangle(centerx,centery,width=5,height=5)
+    for corner in rectangle.corners:
+        sub_rectangle = Rectangle(width=1,height=1,**rectangle.corners[corner])
+        canvas.add(sub_rectangle)
     canvas.add(rectangle)
     print '\n'.join(parent.content())
 
