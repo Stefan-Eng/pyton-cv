@@ -1,5 +1,33 @@
 from base_classes import NestingDoll
 
+class Line(NestingDoll):
+
+    def __init__(self, start, end, width=None, stroke=None, **kwargs):
+        x = [start["x"],end["x"]]
+        y = [start["y"],end["y"]]
+        xdiff = max(x) - min(x)
+        ydiff = max(y) - min(y)
+        self.center = NestingDoll.Center(max(x) - xdiff,
+                                         max(y) - ydiff)
+        if not stroke:
+           stroke = "black"
+
+        if not width:
+            width = "0.02"
+        width = width+'cm'
+
+        coordinates_x = ['x{}="{}cm"'.format(number, x_value) for number, x_value
+                        in enumerate(x, start=1)]
+        coordinates_y = ['y{}="{}cm"'.format(number, y_value) for number, y_value
+                        in enumerate(y, start=1)]
+
+        arguments = coordinates_x+coordinates_y
+        arguments.append('stroke-width="{}"'.format(width))
+        arguments.append('stroke="{}"'.format(stroke))
+
+        header = "<line {} />".format(" ".join(arguments))
+        NestingDoll.__init__(self, header)
+
 class Rectangle(NestingDoll): 
 
     def __init__(self, x, y, width, height, **kwargs):
