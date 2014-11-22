@@ -72,6 +72,3 @@ class Rectangle(NestingDoll):
         x = x - self.center.x
         y = y - self.center.y
         return (x, y)
-
-    def add(self, child):
-        raise AttributeError("add(child) not supported by Rectangle.")
