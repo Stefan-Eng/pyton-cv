@@ -33,7 +33,7 @@ class Parent(NestingDoll):
 class Canvas(NestingDoll):
 
     def __init__(self, height, width):
-        header='<svg height="{}cm" width="{}cm" version="1.1" xmlns="http://www.w3.org/2000/svg">'.format(height, width)
+        header='<svg height="{}cm" width="{}cm">'.format(height, width)
         footer='</svg>'
         NestingDoll.__init__(self, header=header, footer=footer)
         self.height = height
