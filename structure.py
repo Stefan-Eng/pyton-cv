@@ -30,4 +30,7 @@ class Canvas(NestingDoll):
 
         background = Rectangle(self.center.x, self.center.y, width, height,
                                fill="white",stroke="none")
+        self.corners = background.corners
+        self.sides = background.sides
         self.add(background)
+
