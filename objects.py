@@ -1,5 +1,6 @@
+from base_classes import NestingDoll
 
-class Rectangle: 
+class Rectangle(NestingDoll): 
 
     def __init__(self, x, y, width, height, **kwargs):
         self.x = x
