@@ -7,6 +7,7 @@ class Rectangle(NestingDoll):
         self.y = y
         self.width = width
         self.height = height
+        self.center = NestingDoll.Center(width/2,height/2)
 
         if kwargs:
             self.kwargs = kwargs

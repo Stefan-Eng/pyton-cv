@@ -1,6 +1,9 @@
+from collections import namedtuple
+
 class NestingDoll:
 
     master_indent = 2
+    Center = namedtuple("Center",'x y')
 
     def __init__(self, header=None, footer=None, indent=master_indent):
         self.children = []

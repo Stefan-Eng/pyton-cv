@@ -15,4 +15,4 @@ class Canvas(NestingDoll):
         NestingDoll.__init__(self, header=header, footer=footer)
         self.height = height
         self.width = width
-        self.center = (width/2, height/2)
+        self.center = NestingDoll.Center(width/2, height/2)
