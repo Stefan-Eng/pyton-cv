@@ -1,4 +1,5 @@
 from base_classes import NestingDoll
+from objects import Rectangle
 
 class Parent(NestingDoll):
 
@@ -16,3 +17,7 @@ class Canvas(NestingDoll):
         self.height = height
         self.width = width
         self.center = NestingDoll.Center(width/2, height/2)
+
+        background = Rectangle(self.center.x, self.center.y, width, height,
+                               fill="white",stroke="none")
+        self.add(background)
