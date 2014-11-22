@@ -16,7 +16,7 @@ def main():
         middle_coordinates = rectangle.sides[side]["middle"]
         middle_coordinates.update(side_cube_style)
         sub_rectangle = Rectangle(width=1, height=1, **middle_coordinates)
-        canvas.add(sub_rectangle)
+        rectangle.add(sub_rectangle)
 
     print '\n'.join(canvas.content())
 
