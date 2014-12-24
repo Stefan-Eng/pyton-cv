@@ -1,5 +1,34 @@
 from base_classes import NestingDoll
 
+class Textline(object):
+    
+    def __init__(self,text):
+       self.text = text
+    def content(self, indent=None):
+        return [" "*2+self.text]
+
+class Text(NestingDoll):
+
+    def __init__(self, text, x, y, fill="black", font_size="45", 
+                 font_family="Baskerville"):
+        self.x = x
+        self.y = y
+        self.fill = fill
+        self.font_size = font_size
+        self.font_family = font_family
+        attributes = []
+        for attribute, value in vars(self).items():
+            attribute = attribute.replace('_','-')
+            if attribute in ['x','y']:
+                value = "{}cm".format(value)
+            attributes.append('{}="{}"'.format(attribute,value))
+        header = "<text {} >".format(" ".join(attributes))
+        footer = "</text>"
+
+        NestingDoll.__init__(self, header=header, footer=footer)
+        for line in text.split('\n'):
+            self.add(Textline(line))
+
 class Line(NestingDoll):
 
     def __init__(self, start, end, width=None, stroke=None, **kwargs):
