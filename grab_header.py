@@ -1,14 +1,6 @@
 import struct
 
-def main():
-
-    with open("Georgia.ttf", 'r') as filehandler:
-
-        tables_info = get_tables_dictionary(filehandler)
-        for table in tables_info:
-            print table
-
-def get_tables_dictionary(filehandler):
+def tables_metadata(filehandler):
     filehandler.seek(0)
     header_data = filehandler.read(12)
     version, num_tables, search_range, \
