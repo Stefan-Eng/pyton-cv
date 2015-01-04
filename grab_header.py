@@ -2,84 +2,37 @@ import struct
 
 def main():
 
-    with open("Georgia.ttf", 'r') as file_handle:
+    with open("Georgia.ttf", 'r') as filehandler:
 
-        version_data = file_handle.read(4)
-        version = exunpack(">4s",version_data)
+        tables_info = get_tables_dictionary(filehandler)
+        for table in tables_info:
+            print table
 
-        num_tables_data = file_handle.read(2)
-        num_tables = exunpack(">H", num_tables_data)
+def get_tables_dictionary(filehandler):
+    filehandler.seek(0)
+    header_data = filehandler.read(12)
+    version, num_tables, search_range, \
+    range_shift, padding = struct.unpack(">4sHHHH",header_data)
 
-        search_range_data = file_handle.read(2)
-        search_range = exunpack(">H", search_range_data)
+    ttf_header_data = {}
+    ttf_header_data["version"] = version
+    ttf_header_data["number_of_tables"] = num_tables
+    ttf_header_data["search_range"] = search_range
+    ttf_header_data["range_shift"] = range_shift
 
-        range_shift_data = file_handle.read(2)
-        range_shift = exunpack(">H", range_shift_data)
+    table_headers = {}
+    table_headers["ttf_header"] = ttf_header_data
 
-        print "version: {}".format(b(version))
-        print "number_of_tables: {}".format(num_tables)
-        print "search_range: {}".format(search_range)
-        print "range_shift: {}".format(range_shift)
+    for i in range(num_tables):
+        table_data = filehandler.read(16)
+        tag, check_sum, offset, length = struct.unpack(">4sLLL", table_data)
+        table_data_dictionary = {}
+        table_data_dictionary["check_sum"] = check_sum
+        table_data_dictionary["offset"] = offset
+        table_data_dictionary["length"] = length
+        table_headers[tag] = table_data_dictionary
 
-        # Read last 2 buffer bytes.
-        last_to_bytes = file_handle.read(2)
-        print b(last_to_bytes)
-
-        # Beginning of tables table.
-
-        first_table_tag_data = file_handle.read(4)
-        first_table_tag = exunpack(">4s", first_table_tag_data)
-
-        first_table_check_sum_data = file_handle.read(4)
-        first_table_check_sum = exunpack(">L", first_table_check_sum_data)
-
-        first_table_offset_data = file_handle.read(4)
-        first_table_offset = exunpack(">L", first_table_offset_data)
-
-        first_table_length_data = file_handle.read(4)
-        first_table_length = exunpack(">L", first_table_length_data)
-
-        print "first tag: {}".format(first_table_tag)
-        print "first checksum: {}".format(first_table_check_sum)
-        print "first offset: {}".format(first_table_offset)
-        print "first length: {}".format(first_table_length)
-
-        second_table_tag_data = file_handle.read(4)
-        second_table_tag = exunpack(">4s", second_table_tag_data)
-
-        second_table_check_sum_data = file_handle.read(4)
-        second_table_check_sum = exunpack(">L", second_table_check_sum_data)
-
-        second_table_offset_data = file_handle.read(4)
-        second_table_offset = exunpack(">L", second_table_offset_data)
-
-        second_table_length_data = file_handle.read(4)
-        second_table_length = exunpack(">L", second_table_length_data)
-
-        print "second tag: {}".format(second_table_tag)
-        print "second checksum: {}".format(second_table_check_sum)
-        print "second offset: {}".format(second_table_offset)
-        print "second length: {}".format(second_table_length)
-
-        third_table_tag_data = file_handle.read(4)
-        third_table_tag = exunpack(">4s", third_table_tag_data)
-
-        third_table_check_sum_data = file_handle.read(4)
-        third_table_check_sum = exunpack(">L", third_table_check_sum_data)
-
-        third_table_offset_data = file_handle.read(4)
-        third_table_offset = exunpack(">L", third_table_offset_data)
-
-        third_table_length_data = file_handle.read(4)
-        third_table_length = exunpack(">L", third_table_length_data)
-
-        print "third tag: {}".format(third_table_tag)
-        print "third checksum: {}".format(third_table_check_sum)
-        print "third offset: {}".format(third_table_offset)
-        print "third length: {}".format(third_table_length)
-
-def exunpack(format, string):
-    return struct.unpack(format, string)[0]
+    return table_headers
 
 def b(text):
     return text.encode('string-escape')
