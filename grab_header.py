@@ -78,12 +78,23 @@ def get_hhea_data(filehandler, data_offset, length):
 
     return hhea_dict
 
-def get_hmtx_data(filehandler):
+def get_hmtx_data(filehandler, data_offset, length, number_of_metrics):
 
     """ The fields that make up a hmtx longHorMetric are:
     H / USHORT / uFWord -- advanceWidth
     h / SHORT  / FWord  -- lsb
     """
+
+    filehandler.seek(data_offset)
+
+    entries = []
+    for num in range(number_of_metrics):
+        data = filehandler.read(4)
+        tup = struct.unpack('>Hh',data)
+        entries.append(tup)
+
+    print entries
+
 def b(text):
     return text.encode('string-escape')
 
@@ -92,13 +103,19 @@ def main():
     with open("Georgia.ttf", 'r') as filehandler:
 
         table_metadata = tables_metadata(filehandler)
+
         hhea_metadata = table_metadata['hhea']
-        data_offset = hhea_metadata['data_offset']
-        length = hhea_metadata['length']
+        hhea_data_offset = hhea_metadata['data_offset']
+        hhea_length = hhea_metadata['length']
+        hhea_data= get_hhea_data(filehandler, hhea_data_offset, hhea_length)
 
-        hhea_data= get_hhea_data(filehandler, data_offset, length)
-        print hhea_data
+        number_of_metrics = hhea_data['numberOfHMetrics']
 
+        hmtx_metadata = table_metadata['hmtx']
+        hmtx_data_offset = hmtx_metadata['data_offset']
+        hmtx_length = hmtx_metadata['length']
+        hmtx_data = get_hmtx_data(filehandler, hmtx_data_offset, hmtx_length,
+                                  number_of_metrics)
 
 if __name__ == "__main__":
     main()
