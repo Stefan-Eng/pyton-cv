@@ -25,10 +25,10 @@ def get_tables_dictionary(filehandler):
 
     for i in range(num_tables):
         table_data = filehandler.read(16)
-        tag, check_sum, offset, length = struct.unpack(">4sLLL", table_data)
+        tag, check_sum, data_offset, length = struct.unpack(">4sLLL", table_data)
         table_data_dictionary = {}
         table_data_dictionary["check_sum"] = check_sum
-        table_data_dictionary["offset"] = offset
+        table_data_dictionary["data_offset"] = data_offset
         table_data_dictionary["length"] = length
         table_headers[tag] = table_data_dictionary
 
@@ -36,6 +36,19 @@ def get_tables_dictionary(filehandler):
 
 def b(text):
     return text.encode('string-escape')
+
+def main():
+
+    with open("Georgia.ttf", 'r') as filehandler:
+
+        table_metadata = tables_metadata(filehandler)
+        hhea_metadata = table_metadata['hhea']
+        data_offset = hhea_metadata['data_offset']
+        length = hhea_metadata['length']
+
+        hhea_data= get_hhea_data(filehandler, data_offset, length)
+        print hhea_data
+
 
 if __name__ == "__main__":
     main()
