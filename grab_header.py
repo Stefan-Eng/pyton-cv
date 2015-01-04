@@ -78,6 +78,12 @@ def get_hhea_data(filehandler, data_offset, length):
 
     return hhea_dict
 
+def get_hmtx_data(filehandler):
+
+    """ The fields that make up a hmtx longHorMetric are:
+    H / USHORT / uFWord -- advanceWidth
+    h / SHORT  / FWord  -- lsb
+    """
 def b(text):
     return text.encode('string-escape')
 
