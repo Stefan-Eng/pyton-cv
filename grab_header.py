@@ -26,6 +26,58 @@ def tables_metadata(filehandler):
 
     return table_headers
 
+def get_hhea_data(filehandler, data_offset, length):
+
+    filehandler.seek(data_offset)
+
+    """ The hhea table consists of the following fields:
+    4s - table version number
+    h - ascender
+    h - decender
+    h - lineGap
+    H - advaceWidthMax
+    h - minLeftSideBearing
+    h - minRightSideBearin
+    h - xMaxExtend
+    h - caretSlopRise
+    h - caretSlopeRun
+    h - reserved
+    h - reserved
+    h - reserved
+    h - reserved
+    h - reserved
+    h - metricDataFormat
+    H - numberOfHMetrics
+    """
+
+    hhea_data = filehandler.read(length)
+    version, ascender, decender, lineGap, \
+    advanceWidthMax, minLeftSideBearing, minRightSideBearing, \
+    xMaxExtend, caretSlopeRise, caretSlopeRun, reserved0, reserved1, \
+    reserved2, reserved3, reserved4, metricDataFormat, \
+    numberOfHMetrics = struct.unpack('>4shhhHhhhhhhhhhhhH', hhea_data)
+
+    hhea_dict = {}
+    hhea_dict["version"] = version
+    hhea_dict["ascender"] = ascender
+    hhea_dict["decender"] = decender
+    hhea_dict["lineGap"] = lineGap
+    hhea_dict["advanceWidthMax"] = advanceWidthMax
+    hhea_dict["minLeftSideBearing"] = minLeftSideBearing
+    hhea_dict["minRightSideBearing"] = minRightSideBearing
+    hhea_dict["xMaxExtend"] = xMaxExtend
+    hhea_dict["caretSlopeRise"] = caretSlopeRise
+    hhea_dict["caretSlopeRun"] = caretSlopeRun
+    hhea_dict["reserved0"] = reserved0
+    hhea_dict["reserved1"] = reserved1
+    hhea_dict["reserved2"] = reserved2
+    hhea_dict["reserved3"] = reserved3
+    hhea_dict["reserved4"] = reserved4
+    hhea_dict["metricDataFormat"] = metricDataFormat
+    hhea_dict["numberOfHMetrics"] = numberOfHMetrics
+
+    return hhea_dict
+
 def b(text):
     return text.encode('string-escape')
 
