@@ -93,7 +93,8 @@ def get_hmtx_data(filehandler, data_offset, length, number_of_metrics):
         tup = struct.unpack('>Hh',data)
         entries.append(tup)
 
-    print entries
+def get_post_data(filehandler, data_offset, length):
+
 
 def b(text):
     return text.encode('string-escape')
