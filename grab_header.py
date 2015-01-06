@@ -93,8 +93,15 @@ def get_hmtx_data(filehandler, data_offset, length, number_of_metrics):
         tup = struct.unpack('>Hh',data)
         entries.append(tup)
 
-def get_post_data(filehandler, data_offset, length):
+def get_post_data(filehandler, metadata):
 
+    data_offset = metadata['data_offset']
+    length = metadata['length']
+
+    filehandler.seek(data_offset)
+    data = filehandler.read(4)
+    version = struct.unpack('>4s',data)
+    print version
 
 def b(text):
     return text.encode('string-escape')
@@ -117,6 +124,9 @@ def main():
         hmtx_length = hmtx_metadata['length']
         hmtx_data = get_hmtx_data(filehandler, hmtx_data_offset, hmtx_length,
                                   number_of_metrics)
+
+        post_metadata = table_metadata['post']
+        post_data = get_post_data(filehandler, post_metadata)
 
 if __name__ == "__main__":
     main()
