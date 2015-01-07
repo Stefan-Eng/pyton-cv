@@ -93,15 +93,57 @@ def get_hmtx_data(filehandler, data_offset, length, number_of_metrics):
         tup = struct.unpack('>Hh',data)
         entries.append(tup)
 
-def get_post_data(filehandler, metadata):
+def get_post_name_array(filehandler, metadata):
 
     data_offset = metadata['data_offset']
     length = metadata['length']
 
     filehandler.seek(data_offset)
-    data = filehandler.read(4)
-    version = struct.unpack('>4s',data)
-    print version
+    data = filehandler.read(32)
+    version, italicAngle, underlinePosition, underlineThickness, \
+    isFixedPitch, minMemType42, maxMemType42, minMemType1, \
+    maxMemType1 = struct.unpack('>4slhhLLLLL', data)
+
+    data_dict = {}
+    data_dict["version"] = version
+    data_dict["italicAngle"] = italicAngle
+    data_dict["underlinePosition"] = underlinePosition
+    data_dict["underlineThickness"] = underlineThickness
+    data_dict["isFixedPitch"] = isFixedPitch
+    data_dict["minMemType42"] = minMemType42
+    data_dict["maxMemType42"] = maxMemType42
+    data_dict["minMemType1"] = minMemType1
+    data_dict["maxMemType1"] = maxMemType1
+
+    name_metadata = filehandler.read(2)
+    num_glyphs = struct.unpack('>H', name_metadata)[0]
+
+    glyph_positions = []
+    for i in range(num_glyphs):
+        pos_data = filehandler.read(2)
+        pos_offset = struct.unpack('>H', pos_data)[0]
+        glyph_positions.append(pos_offset)
+
+    name_array = []
+    for x in range(num_glyphs):
+        length_data = filehandler.read(1)
+        length = struct.unpack('>B', length_data)[0]
+        if length == 0:
+            filehandler.seek(-1, 1)
+            name_array.append('.null')
+        string_data = filehandler.read(length)
+        name = struct.unpack('>{}s'.format(length), string_data)[0]
+        name_array.append(name)
+
+    glyph_to_name_mapping = []
+    for pos in glyph_positions:
+        if pos < 256:
+            glyph_to_name_mapping.append('.null')
+        else:
+            pos = pos-256
+            glyph_to_name_mapping.append(name_array[pos])
+
+    return glyph_to_name_mapping
 
 def b(text):
     return text.encode('string-escape')
@@ -126,7 +168,9 @@ def main():
                                   number_of_metrics)
 
         post_metadata = table_metadata['post']
-        post_data = get_post_data(filehandler, post_metadata)
+        name_array = get_post_name_array(filehandler, post_metadata)
+
+        print name_array
 
 if __name__ == "__main__":
     main()
