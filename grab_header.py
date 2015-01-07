@@ -1,4 +1,5 @@
 import struct
+import json
 
 def tables_metadata(filehandler):
     filehandler.seek(0)
@@ -87,11 +88,13 @@ def get_hmtx_data(filehandler, data_offset, length, number_of_metrics):
 
     filehandler.seek(data_offset)
 
-    entries = []
+    glyph_metrics = []
     for num in range(number_of_metrics):
         data = filehandler.read(4)
         tup = struct.unpack('>Hh',data)
-        entries.append(tup)
+        glyph_metrics.append(tup)
+
+    return glyph_metrics
 
 def get_post_name_array(filehandler, metadata):
 
@@ -168,9 +171,15 @@ def main():
                                   number_of_metrics)
 
         post_metadata = table_metadata['post']
-        name_array = get_post_name_array(filehandler, post_metadata)
+        glyph_names = get_post_name_array(filehandler, post_metadata)
 
-        print name_array
+        glyph_data = {}
+        for name, data in zip(glyph_names, hmtx_data):
+            advanceWidth, lsb = data
+            glyph_data[name] = {'advanceWidth': advanceWidth,
+                                'lsb': lsb}
+
+        print json.dumps(glyph_data, indent=4, separators=(',',':'))
 
 if __name__ == "__main__":
     main()
