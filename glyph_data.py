@@ -159,7 +159,7 @@ def get_alphabet(glyph_dict):
         alphabet[letter] = glyph_dict[letter]
     return alphabet
 
-def main():
+def get_alphabethical_glyphs():
 
     with open("Georgia.ttf", 'r') as filehandler:
 
@@ -190,7 +190,13 @@ def main():
         #TODO: kerning data?
 
         glyph_data = get_alphabet(glyph_data)
-        print json.dumps(glyph_data, indent=4, separators=(',',':'))
+
+        return glyph_data
+
+def main():
+
+    glyph_data = get_alphabethical_glyphs()
+    print json.dumps(glyph_data, indent=4, separators=(',',':'))
 
 if __name__ == "__main__":
     main()
