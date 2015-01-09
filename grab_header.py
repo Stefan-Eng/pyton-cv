@@ -151,6 +151,14 @@ def get_post_name_array(filehandler, metadata):
 def b(text):
     return text.encode('string-escape')
 
+def get_alphabet(glyph_dict):
+    alphabet = {}
+    for letter in 'abcdefghijklmnopqrstuvwxyz':
+        alphabet[letter] = glyph_dict[letter]
+        letter = letter.upper()
+        alphabet[letter] = glyph_dict[letter]
+    return alphabet
+
 def main():
 
     with open("Georgia.ttf", 'r') as filehandler:
@@ -179,6 +187,7 @@ def main():
             glyph_data[name] = {'advanceWidth': advanceWidth,
                                 'lsb': lsb}
 
+        glyph_data = get_alphabet(glyph_data)
         print json.dumps(glyph_data, indent=4, separators=(',',':'))
 
 if __name__ == "__main__":
