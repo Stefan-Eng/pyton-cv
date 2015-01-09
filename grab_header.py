@@ -187,6 +187,8 @@ def main():
             glyph_data[name] = {'advanceWidth': advanceWidth,
                                 'lsb': lsb}
 
+        #TODO: kerning data?
+
         glyph_data = get_alphabet(glyph_data)
         print json.dumps(glyph_data, indent=4, separators=(',',':'))
 
