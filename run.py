@@ -2,11 +2,17 @@ from structure import Parent,Canvas
 from objects import Rectangle, Line, Text
 from glyph_data import get_glyph_data
 
+
 def main():
 
-    glyph_data = get_glyph_data()
+    font_size = 12
+    glyph_data = get_glyph_data(font_size)
     glyphs = glyph_data['alphabet']
     unit_per_em = glyph_data['unitsPerEm']
+    dpc = glyph_data['dpc']
+
+    print dpc
+    print glyphs
 
     canvas = Canvas(15,15)
     centerx, centery = canvas.center

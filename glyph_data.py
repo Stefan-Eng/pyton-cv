@@ -1,6 +1,8 @@
 import struct
 import json
 
+import Tkinter # TODO: Try to do find out screen resolution without library.
+
 def get_table_metadata(filehandler):
     filehandler.seek(0)
     header_data = filehandler.read(12)
@@ -191,7 +193,7 @@ def get_alphabet(glyph_dict):
         alphabet[letter] = glyph_dict[letter]
     return alphabet
 
-def get_glyph_data():
+def get_glyph_data(font_size):
 
     with open("Georgia.ttf", 'r') as filehandler:
 
@@ -221,15 +223,35 @@ def get_glyph_data():
 
         #TODO: kerning data?
 
-        alphabet = get_alphabet(glyph_data)
         head_data = get_head_data(filehandler, table_metadata['head'])
+        units_per_em = head_data['unitsPerEm']
+        raw_alphabet = get_alphabet(glyph_data)
+
+        tk_app = Tkinter.Tk()
+        screen_width = tk_app.winfo_screenwidth()
+        screen_height = tk_app.winfo_screenheight()
+        dpi = tk_app.winfo_pixels('1i')
+
+        inch_on_cm = 0.394
+        dpc = dpi * inch_on_cm
+
+        alphabet = {}
+        for letter, data in raw_alphabet.iteritems():
+            letter_dict = alphabet.get(letter)
+            if not letter_dict:
+                letter_dict = alphabet[letter] = {}
+            for key, value in data.iteritems():
+                # Convert font design units to dots.
+                letter_dict[key] = 1.0 * value * font_size / units_per_em
 
         return {"alphabet":alphabet,
-                "unitsPerEm":head_data['unitsPerEm']}
+                "unitsPerEm":units_per_em,
+                "dpc":dpc}
 
 def main():
 
-    glyph_data = get_glyph_data()
+    font_size = 10
+    glyph_data = get_glyph_data(font_size)
     print json.dumps(glyph_data, indent=4, separators=(',',':'))
 
 if __name__ == "__main__":
