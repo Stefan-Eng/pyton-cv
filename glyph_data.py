@@ -83,7 +83,7 @@ def get_hmtx_data(filehandler, data_offset, length, number_of_metrics):
 
     """ The fields that make up a hmtx longHorMetric are:
     H / USHORT / uFWord -- advanceWidth
-    h / SHORT  / FWord  -- lsb
+    h / SHORT  / FWord  -- lsb (left side bearing)
     """
 
     filehandler.seek(data_offset)
