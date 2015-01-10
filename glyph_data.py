@@ -148,6 +148,9 @@ def get_post_name_array(filehandler, metadata):
 
     return glyph_to_name_mapping
 
+def get_head_data(filehander, metadata)
+    pass
+
 def b(text):
     return text.encode('string-escape')
 
