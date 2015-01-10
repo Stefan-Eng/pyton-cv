@@ -1,7 +1,12 @@
 from structure import Parent,Canvas
 from objects import Rectangle, Line, Text
+from glyph_data import get_glyph_data
 
 def main():
+
+    glyph_data = get_glyph_data()
+    glyphs = glyph_data['alphabet']
+    unit_per_em = glyph_data['unitsPerEm']
 
     canvas = Canvas(15,15)
     centerx, centery = canvas.center
@@ -20,7 +25,7 @@ def main():
         kwargs = {}
         kwargs.update(middle_coordinates)
         kwargs.update(side_cube_style)
-        
+
         sub_rectangle = Rectangle(width=1, height=1, **kwargs)
         rectangle.add(sub_rectangle)
 
