@@ -1,7 +1,7 @@
 from base_classes import NestingDoll
 
 class Textline(object):
-    
+
     def __init__(self,text):
        self.text = text
     def content(self, indent=None):
@@ -9,7 +9,7 @@ class Textline(object):
 
 class Text(NestingDoll):
 
-    def __init__(self, text, x, y, fill="black", font_size="45", 
+    def __init__(self, text, x, y, fill="black", font_size="45",
                  font_family="Baskerville"):
         self.x = x
         self.y = y
@@ -57,7 +57,12 @@ class Line(NestingDoll):
         header = "<line {} />".format(" ".join(arguments))
         NestingDoll.__init__(self, header)
 
-class Rectangle(NestingDoll): 
+class Defs(NestingDoll):
+
+    def __init__(self):
+        NestingDoll.__init__(self, header='<defs>', footer='</defs>')
+
+class Rectangle(NestingDoll):
 
     def __init__(self, x, y, width, height, **kwargs):
         self.center = NestingDoll.Center(width/2.0,height/2.0)
@@ -94,7 +99,7 @@ class Rectangle(NestingDoll):
 
         if kwargs:
             self.kwargs = kwargs
-        else: # Set default Rectangle appearance. 
+        else: # Set default Rectangle appearance.
             self.kwargs = {"fill": "none",
                            "stroke": "black",
                            "stroke-width": "0.02"}

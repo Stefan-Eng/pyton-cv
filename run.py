@@ -1,5 +1,5 @@
 from structure import Parent,Canvas
-from objects import Rectangle, Line, Text
+from objects import Rectangle, Line, Text, Defs
 from glyph_data import get_glyph_data
 
 
@@ -11,10 +11,12 @@ def main():
     unit_per_em = glyph_data['unitsPerEm']
     dpc = glyph_data['dpc']
 
-    print dpc
-    print glyphs
-
     canvas = Canvas(15,15)
+
+    defs = Defs()
+
+    canvas.add(defs)
+
     centerx, centery = canvas.center
     rectangle = Rectangle(centerx,centery,width=5,height=5)
     canvas.add(rectangle)
