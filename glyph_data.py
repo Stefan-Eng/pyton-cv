@@ -1,7 +1,7 @@
 import struct
 import json
 
-def tables_metadata(filehandler):
+def get_table_metadata(filehandler):
     filehandler.seek(0)
     header_data = filehandler.read(12)
     version, num_tables, search_range, \
@@ -148,8 +148,37 @@ def get_post_name_array(filehandler, metadata):
 
     return glyph_to_name_mapping
 
-def get_head_data(filehander, metadata)
-    pass
+def get_head_data(filehandler, metadata):
+
+    data_offset = metadata['data_offset']
+    length = metadata['length']
+
+    filehandler.seek(data_offset)
+    data = filehandler.read(42)
+
+    version,fontRevision,checkSumAdjustment,magicNumber,flags, \
+    unitsPerEm,DateTimecreated,DateTimemodified,xMin,yMin,macStyle, \
+    lowestRecPPEM,fontDirectionHint,indexToLocFormat,\
+    glyphDataFormat = struct.unpack('>4s4sLLHHllhhHHhhh', data)
+
+    data_dict = {}
+    data_dict['version'] = version
+    data_dict['fontRevision'] = fontRevision
+    data_dict['checkSumAdjustment'] = checkSumAdjustment
+    data_dict['magicNumber'] = magicNumber
+    data_dict['flags'] = flags
+    data_dict['unitsPerEm'] = unitsPerEm
+    data_dict['DateTimecreated'] = DateTimecreated
+    data_dict['DateTimemodified'] = DateTimemodified
+    data_dict['xMin'] = xMin
+    data_dict['yMin'] = yMin
+    data_dict['macStyle'] = macStyle
+    data_dict['lowestRecPPEM'] = lowestRecPPEM
+    data_dict['fontDirectionHint'] = fontDirectionHint
+    data_dict['indexToLocFormat'] = indexToLocFormat
+    data_dict['glyphDataFormat'] = glyphDataFormat
+
+    return data_dict
 
 def b(text):
     return text.encode('string-escape')
@@ -162,11 +191,11 @@ def get_alphabet(glyph_dict):
         alphabet[letter] = glyph_dict[letter]
     return alphabet
 
-def get_alphabethical_glyphs():
+def get_glyph_data():
 
     with open("Georgia.ttf", 'r') as filehandler:
 
-        table_metadata = tables_metadata(filehandler)
+        table_metadata = get_table_metadata(filehandler)
 
         hhea_metadata = table_metadata['hhea']
         hhea_data_offset = hhea_metadata['data_offset']
@@ -192,13 +221,15 @@ def get_alphabethical_glyphs():
 
         #TODO: kerning data?
 
-        glyph_data = get_alphabet(glyph_data)
+        alphabet = get_alphabet(glyph_data)
+        head_data = get_head_data(filehandler, table_metadata['head'])
 
-        return glyph_data
+        return {"alphabet":alphabet,
+                "unitsPerEm":head_data['unitsPerEm']}
 
 def main():
 
-    glyph_data = get_alphabethical_glyphs()
+    glyph_data = get_glyph_data()
     print json.dumps(glyph_data, indent=4, separators=(',',':'))
 
 if __name__ == "__main__":
