@@ -12,7 +12,7 @@ def main():
     unit_per_em = glyph_data['unitsPerEm']
     dpc = glyph_data['dpc']
 
-    canvas = Canvas(15,15)
+    canvas = Canvas()
 
     defs = Defs()
     style = Style(font_name,'Georgia.ttf')

@@ -10,7 +10,7 @@ class Textline(object):
 class Text(NestingDoll):
 
     def __init__(self, text, x, y, fill="black", font_size="45",
-                 font_family="Baskerville"):
+                 font_family="Georgia"):
         self.x = x
         self.y = y
         self.fill = fill
