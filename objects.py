@@ -62,6 +62,31 @@ class Defs(NestingDoll):
     def __init__(self):
         NestingDoll.__init__(self, header='<defs>', footer='</defs>')
 
+class Style(NestingDoll):
+
+    def __init__(self, fontfamily, fontfile):
+        self.header = '<style type="text/css">'
+        NestingDoll.__init__(self, header=self.header,footer='</style>')
+        self.add(self.FontFace(fontfamily, fontfile))
+
+    class FontFace(NestingDoll):
+
+        def __init__(self, fontfamily, fontfile):
+            self.header = "<![CDATA["
+            self.footer = "]]>"
+            self.fontfamily = fontfamily
+            self.fontfile = fontfile
+            NestingDoll.__init__(self, header=self.header, footer=self.footer)
+
+        def content(self, indent=None):
+            cdata = """  <![CDATA[
+    @font-face {{
+      font-family: '{}';
+      src: url("{}") format("truetype")
+    }}
+  ]]>""".format(self.fontfamily, self.fontfile)
+            return cdata.split('\n')
+
 class Rectangle(NestingDoll):
 
     def __init__(self, x, y, width, height, **kwargs):

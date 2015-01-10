@@ -1,11 +1,12 @@
 from structure import Parent,Canvas
-from objects import Rectangle, Line, Text, Defs
+from objects import Rectangle, Line, Text, Defs, Style
 from glyph_data import get_glyph_data
 
 
 def main():
 
     font_size = 12
+    font_name = 'Georgia'
     glyph_data = get_glyph_data(font_size)
     glyphs = glyph_data['alphabet']
     unit_per_em = glyph_data['unitsPerEm']
@@ -14,6 +15,8 @@ def main():
     canvas = Canvas(15,15)
 
     defs = Defs()
+    style = Style(font_name,'Georgia.ttf')
+    defs.add(style)
 
     canvas.add(defs)
 
@@ -26,7 +29,7 @@ def main():
 
     side_cube_style = {'fill':'yellow','stroke':'blue','stroke-width':'0.05'}
     points = rectangle.sides["left"]["middle"]
-    text2 = Text(text="ABCDabcd Sans",font_size=22,font_family="Sans",**points)
+    text2 = Text(text="ABCDabcd Sans",font_size=22,font_family=font_name,**points)
     canvas.add(text2)
     for side in rectangle.sides:
         middle_coordinates = rectangle.sides[side]["middle"]
