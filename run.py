@@ -97,28 +97,38 @@ def main():
     unit_per_em = glyph_data['unitsPerEm']
     dpc = glyph_data['dpc']
 
+    header_size = 20
+    header_glyphs = get_glyph_data(header_size)['alphabet']
+
     paragraph_spacing = 1.0
     line_spacing = 0.5
 
-    start_x = 6
+    start_x = 4
     start_y = 4
 
     # TODO: See if it's possible to get better splitting by using xmin/xmax.
 
     current_line = 0
     canvas_width = canvas.width
-    space_width = float(glyphs[' ']['advanceWidth'])
     spacing = paragraph_spacing
     current_y = next_y = start_y
     i = 0 # debug
     for line in lines:
+        if line[0] == '!':
+            line = line[1:]
+            current_glyphs = header_glyphs
+            current_font_size = header_size
+        else:
+            current_glyphs = glyphs
+            current_font_size = font_size
+        space_width = float(current_glyphs[' ']['advanceWidth'])
         current_y = next_y
         word_buffer = []
         end_x = start_x
         for word in line.split(' '):
             for char in word:
                 old_end = end_x
-                advance_width = float(glyphs[char]['advanceWidth'])
+                advance_width = float(current_glyphs[char]['advanceWidth'])
                 end_x += advance_width
                 if debug:
                     color = ['red','green','blue'][i]
@@ -131,12 +141,12 @@ def main():
                 end_x = start_x
                 text = Text(' '.join(word_buffer), x=start_x,
                             y=current_y,
-                            font_size=font_size)
+                            font_size=current_font_size)
                 canvas.add(text)
                 word_buffer = []
                 word_buffer.append(word)
                 for char in word:
-                    end_x += float(glyphs[char]['advanceWidth'])
+                    end_x += float(current_glyphs[char]['advanceWidth'])
                     end_x += space_width
                 current_y += line_spacing
                 continue
@@ -145,7 +155,7 @@ def main():
             end_x += space_width
 
         text = Text(' '.join(word_buffer), x=start_x,
-                    y=current_y, font_size=font_size)
+                    y=current_y, font_size=current_font_size)
         next_y = current_y + paragraph_spacing
         canvas.add(text)
 
