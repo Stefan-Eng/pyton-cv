@@ -1,0 +1,34 @@
+# This is a comment, this should not appear.
+/font_size=12
+/font_name=Georgia
+
+!This should be a heading.//
+
+This is a block of text
+where the linebreaks should be ignored.
+
+This should also be included in the same text as above.
+
+
+So this should work for a really long text that should be
+split on multiple lines as several lines it's kind of hard to just
+print a lot of text without having something to write about but
+it's kind of fun to have something that works most of the time.
+
+
+a o o o o o o o o b o o o o o o c
+a o o o o o o o o b o o o o o o c
+a o o o o o o o o b o o o o o o c
+a o o o o o o o o b o o o o o o c
+a o o o o o o o o b o o o o o o c
+a o o o o o o o o b o o o o o o c
+
+
+This should be its own block if double empty separates. //
+
+This should be its own block if line break symbol works.
+
+/line # should be in its own block, inline comment not visible.
+
+This should be separated to its own block because of the line dependent command.
+
