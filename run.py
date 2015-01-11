@@ -6,11 +6,11 @@ input_text = [line.strip() for line in open("input.txt").readlines()]
 #input_text = [line.strip() for line in open("massive_input.txt").readlines()]
 
 def parse(text):
-    commands, text_blocks = find_textblocks(text)
+    global_commands, lines = get_lines_and_commands(text)
 
-    print text_blocks, commands
+    print lines, global_commands
 
-def find_textblocks(text):
+def get_lines_and_commands(text):
     all_blocks = []
     current_block = []
     commands = []
@@ -47,7 +47,8 @@ def find_textblocks(text):
             current_block.append(line)
     if current_block:
         all_blocks.append(current_block)
-    return commands, all_blocks
+    fused_lines = [ ' '.join(text_block) for text_block in all_blocks]
+    return commands, fused_lines
 
 def append_command(command):
     line_dependent_commands = ['/line']
@@ -57,8 +58,8 @@ def append_command(command):
 
 def main():
 
-    font_size = 12
-    font_name = 'Georgia'
+    lines, global_commands = parse(input_text)
+
     glyph_data = get_glyph_data(font_size)
     glyphs = glyph_data['alphabet']
     unit_per_em = glyph_data['unitsPerEm']
