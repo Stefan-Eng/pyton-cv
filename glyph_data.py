@@ -91,6 +91,7 @@ def get_hmtx_data(filehandler, data_offset, length, number_of_metrics):
     filehandler.seek(data_offset)
 
     glyph_metrics = []
+    trash_data = filehandler.read(4)
     for num in range(number_of_metrics):
         data = filehandler.read(4)
         tup = struct.unpack('>Hh',data)
@@ -187,10 +188,19 @@ def b(text):
 
 def get_alphabet(glyph_dict):
     alphabet = {}
+    non_chars = [('space',' '),('period','.'),('comma','.'),
+                 ('parenleft','('),('parenright',')'), ('question','?'),
+                 ('at','@'), ('one','1'), ('two','2'), ('three','3'),
+                 ('four','4'),('five','5'),('six','6'),('seven','7'),
+                 ('eight','8'),('nine','9'),('zero','0'),('slash','/'),
+                 ('quotesingle',"'")]
+
     for letter in 'abcdefghijklmnopqrstuvwxyz':
         alphabet[letter] = glyph_dict[letter]
         letter = letter.upper()
         alphabet[letter] = glyph_dict[letter]
+    for key, store_as in non_chars:
+        alphabet[store_as] = glyph_dict[key]
     return alphabet
 
 def get_glyph_data(font_size):
