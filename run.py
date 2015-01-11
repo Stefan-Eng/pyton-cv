@@ -8,7 +8,7 @@ input_text = [line.strip() for line in open("input.txt").readlines()]
 def parse(text):
     global_commands, lines = get_lines_and_commands(text)
 
-    print lines, global_commands
+    return lines, global_commands
 
 def get_lines_and_commands(text):
     all_blocks = []
@@ -48,7 +48,19 @@ def get_lines_and_commands(text):
     if current_block:
         all_blocks.append(current_block)
     fused_lines = [ ' '.join(text_block) for text_block in all_blocks]
-    return commands, fused_lines
+    return command_dictionary(commands), fused_lines
+
+def command_dictionary(commands):
+    command_dict = {}
+    for command in commands:
+        variable, value = command.split('=')
+        variable = variable.replace('/','').strip()
+        value = value.strip()
+        try:
+            command_dict[variable] = int(value)
+        except ValueError:
+            command_dict[variable] = value
+    return command_dict
 
 def append_command(command):
     line_dependent_commands = ['/line']
@@ -59,6 +71,9 @@ def append_command(command):
 def main():
 
     lines, global_commands = parse(input_text)
+
+    font_size = global_commands['font_size']
+    font_name = global_commands['font_name']
 
     glyph_data = get_glyph_data(font_size)
     glyphs = glyph_data['alphabet']
@@ -74,7 +89,6 @@ def main():
     canvas.add(defs)
 
 #    print '\n'.join(canvas.content())
-    parse(input_text)
 
 if __name__ == "__main__":
     main()
