@@ -68,17 +68,10 @@ def append_command(command):
         return False
     return True
 
-def main():
-
-    lines, global_commands = parse(input_text)
+def initiate_canvas(global_commands):
 
     font_size = global_commands['font_size']
     font_name = global_commands['font_name']
-
-    glyph_data = get_glyph_data(font_size)
-    glyphs = glyph_data['alphabet']
-    unit_per_em = glyph_data['unitsPerEm']
-    dpc = glyph_data['dpc']
 
     canvas = Canvas()
 
@@ -88,7 +81,75 @@ def main():
 
     canvas.add(defs)
 
-#    print '\n'.join(canvas.content())
+    return canvas
+
+def main():
+
+    debug = True
+
+    lines, global_commands = parse(input_text)
+    canvas = initiate_canvas(global_commands)
+
+    font_size = global_commands['font_size']
+
+    glyph_data = get_glyph_data(font_size)
+    glyphs = glyph_data['alphabet']
+    unit_per_em = glyph_data['unitsPerEm']
+    dpc = glyph_data['dpc']
+
+    paragraph_spacing = 1.0
+    line_spacing = 0.5
+
+    start_x = 6
+    start_y = 4
+
+    # TODO: See if it's possible to get better splitting by using xmin/xmax.
+
+    current_line = 0
+    canvas_width = canvas.width
+    space_width = float(glyphs[' ']['advanceWidth'])
+    spacing = paragraph_spacing
+    current_y = next_y = start_y
+    i = 0 # debug
+    for line in lines:
+        current_y = next_y
+        word_buffer = []
+        end_x = start_x
+        for word in line.split(' '):
+            for char in word:
+                old_end = end_x
+                advance_width = float(glyphs[char]['advanceWidth'])
+                end_x += advance_width
+                if debug:
+                    color = ['red','green','blue'][i]
+                    i += 1
+                    i = i%3
+                    start = {'x': old_end,'y':current_y+0.1}
+                    end = {'x': end_x, 'y':start['y']}
+                    canvas.add(Line(start,end,stroke=color))
+            if end_x > canvas_width:
+                end_x = start_x
+                text = Text(' '.join(word_buffer), x=start_x,
+                            y=current_y,
+                            font_size=font_size)
+                canvas.add(text)
+                word_buffer = []
+                word_buffer.append(word)
+                for char in word:
+                    end_x += float(glyphs[char]['advanceWidth'])
+                    end_x += space_width
+                current_y += line_spacing
+                continue
+            else:
+                word_buffer.append(word)
+            end_x += space_width
+
+        text = Text(' '.join(word_buffer), x=start_x,
+                    y=current_y, font_size=font_size)
+        next_y = current_y + paragraph_spacing
+        canvas.add(text)
+
+    print '\n'.join(canvas.content())
 
 if __name__ == "__main__":
     main()
