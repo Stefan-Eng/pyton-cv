@@ -252,7 +252,8 @@ def get_glyph_data(font_size):
                 letter_dict = alphabet[letter] = {}
             for key, value in data.iteritems():
                 # Convert font design units to dots.
-                letter_dict[key] = 1.0 * value * font_size / units_per_em
+                dots  = 1.0 * value * font_size / units_per_em
+                letter_dict[key] = dots/dpc # convert to centimeters
 
         return {"alphabet":alphabet,
                 "unitsPerEm":units_per_em,
