@@ -197,7 +197,7 @@ def get_alphabet(glyph_dict):
                  ('eight','8'),('nine','9'),('zero','0'),('slash','/'),
                  ('quotesingle',"'"),('O','Ö'),('o','ö'),('A','Ä'),
                  ('a','ä'),('A','Å'),('a','å'),('comma',','),
-                 ('exclam','!')]
+                 ('exclam','!'),('e','é')]
 
     for letter in 'abcdefghijklmnopqrstuvwxyz':
         alphabet[letter] = glyph_dict[letter]

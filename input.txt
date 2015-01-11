@@ -1,8 +1,12 @@
 # This is a comment, this should not appear.
+/header_size=25
+/sub_header_size = 20
 /font_size=12
 /font_name=Georgia
 
-!This should be a heading.//
+!Stefans awesome resume.//
+
+!!This is a subheader..//
 
 This is a block of text
 where the linebreaks should be ignored.

@@ -85,20 +85,22 @@ def initiate_canvas(global_commands):
 
 def main():
 
-    debug = True
+    debug = False
 
     lines, global_commands = parse(input_text)
     canvas = initiate_canvas(global_commands)
 
     font_size = global_commands['font_size']
+    header_size = global_commands['header_size']
+    sub_header_size = global_commands['sub_header_size']
 
     glyph_data = get_glyph_data(font_size)
     glyphs = glyph_data['alphabet']
     unit_per_em = glyph_data['unitsPerEm']
     dpc = glyph_data['dpc']
 
-    header_size = 20
     header_glyphs = get_glyph_data(header_size)['alphabet']
+    sub_header_glyphs = get_glyph_data(sub_header_size)['alphabet']
 
     paragraph_spacing = 1.0
     line_spacing = 0.5
@@ -114,7 +116,11 @@ def main():
     current_y = next_y = start_y
     i = 0 # debug
     for line in lines:
-        if line[0] == '!':
+        if line.startswith('!!'):
+            line = line[2:]
+            current_glyphs = sub_header_glyphs
+            current_font_size = sub_header_size
+        elif line.startswith('!'):
             line = line[1:]
             current_glyphs = header_glyphs
             current_font_size = header_size
