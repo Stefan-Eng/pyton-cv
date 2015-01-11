@@ -16,11 +16,20 @@ def find_textblocks(text):
     commands = []
     previous_was_break = False
     for line in text:
-        if line.startswith('#'):
-            continue
+        if '#' in line:
+            if line.startswith('#'):
+                continue
+            else:
+                line = line.split('#')[0].strip()
         if line.startswith('/'):
             if append_command(line):
                 commands.append(line)
+            else:
+                all_blocks.append(current_block)
+                current_block = []
+                all_blocks.append([line])
+                previous_was_break = False # Inline commands always define
+                                           # new blocks.
             continue
         if line == "":
             if previous_was_break:
@@ -41,7 +50,7 @@ def find_textblocks(text):
     return commands, all_blocks
 
 def append_command(command):
-    line_dependent_commands = []
+    line_dependent_commands = ['/line']
     if command in line_dependent_commands:
         return False
     return True
