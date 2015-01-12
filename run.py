@@ -1,26 +1,35 @@
 from structure import Parent,Canvas
-from objects import Rectangle, Line, Text, Defs, Style
 
 input_text = [line.strip() for line in open("input.txt").readlines()]
 
-def get_defs():
-
-    defs = Defs()
-    style = Style('Georgia','Georgia.ttf')
-    defs.add(style)
-
-    return defs
 
 def main():
 
     debug = False
+    background = Canvas(main_canvas=True)
 
-    canvas = Canvas(width=5,start_x=4,start_y=4)
-    canvas.add(get_defs())
+    column_width = 5
+    column_x = 4
+    column_y = 4
 
-    canvas.render_text(input_text)
+    right_border = 0
+    main_body_offset_x = column_width + 2
+    main_body_offset_y = 0
 
-    print '\n'.join(canvas.content())
+
+    left_column = Canvas(width=column_width,start_x=column_x,start_y=column_y)
+    main_body = Canvas(width=21-right_border,
+                       start_x=column_x+main_body_offset_x,
+                       start_y=column_y+main_body_offset_y)
+
+
+    left_column.render_text(input_text)
+    main_body.render_text(input_text)
+
+    background.add(left_column)
+    background.add(main_body)
+
+    print '\n'.join(background.content())
 
 if __name__ == "__main__":
     main()
