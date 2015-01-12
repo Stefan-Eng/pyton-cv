@@ -18,10 +18,15 @@ def main():
 
 
     left_column = Canvas(width=column_width,start_x=column_x,start_y=column_y)
-    main_body = Canvas(width=21-right_border,
-                       start_x=column_x+main_body_offset_x,
-                       start_y=column_y+main_body_offset_y)
 
+    main_start_x = column_x+main_body_offset_x
+    main_start_y = column_y+main_body_offset_y
+
+    main_width = 21-main_start_x-right_border
+
+    main_body = Canvas(width=main_width,
+                       start_x=main_start_x,
+                       start_y=main_start_y)
 
     left_column.render_text(input_text)
     main_body.render_text(input_text)
