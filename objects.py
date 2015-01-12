@@ -10,14 +10,17 @@ class Textline(object):
 class Text(NestingDoll):
 
     def __init__(self, text, x, y, fill="black", font_size="45",
-                 font_family="Georgia"):
+                 font_family="Georgia",font_weight=None):
         self.x = x
         self.y = y
         self.fill = fill
         self.font_size = font_size
         self.font_family = font_family
+        self.font_weight = font_weight
         attributes = []
         for attribute, value in vars(self).items():
+            if not value:
+                continue
             attribute = attribute.replace('_','-')
             if attribute in ['x','y']:
                 value = "{}cm".format(value)

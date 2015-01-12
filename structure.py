@@ -54,81 +54,97 @@ class Canvas(NestingDoll):
 
         return defs
 
+    def check_formatting(self, line, font_size):
+        heading_marker = '!'
+        sub_heading_marker = '!!'
+        size = font_size
+        weight = None
+        if line.startswith(sub_heading_marker):
+            line = line.replace(sub_heading_marker,'')
+            size = font_size + 4
+            weight = 'bold'
+        elif line.startswith(heading_marker):
+            line = line.replace(heading_marker,'')
+            size = font_size + 6
+            weight = 'bold'
+        return size, weight, line
+
+    def auto_break(self, text, font_size, width, line_spacing,
+                   paragraph_spacing, start_x):
+
+        from utils.glyph_keeper import Glyphkeeper
+
+        keeper = Glyphkeeper()
+
+        text = self.set_spacing(text, line_spacing, paragraph_spacing)
+
+        auto_broken_list = []
+        for y_advancement, line in text:
+            current_line = []
+            current_length = start_x
+            current_font_size, weight, line = self.check_formatting(line, font_size)
+            glyphs, space_width = keeper.get_glyphs(font_size)
+            for word in line.split(' '):
+                word_length = self.get_word_length(word, glyphs)
+                new_length = current_length+word_length+space_width
+                if new_length > width:
+                    auto_broken_list.append((y_advancement,current_font_size,
+                                            weight,' '.join(current_line)))
+                    current_length = start_x
+                    y_advancement=line_spacing
+                    current_line = []
+                    current_line.append(word)
+                else:
+                    current_length = new_length
+                    current_line.append(word)
+            auto_broken_list.append((y_advancement,current_font_size,
+                                     weight,' '.join(current_line)))
+
+        _,font_size,weight,first_line = auto_broken_list[0]
+        auto_broken_list[0] = (0, font_size, weight, first_line)
+        return auto_broken_list
+
+    def get_word_length(self, word, glyphs):
+        size = 0
+        for char in word:
+            size += glyphs[char]['advanceWidth']
+        return size
+
+    def set_spacing(self, text_list, line_spacing, paragraph_spacing):
+        spaced_list = []
+        spacing = 0
+        for line in text_list:
+            if '!/' in line:
+                first, second = line.split('!/')
+                spaced_list.append((line_spacing,first))
+                spaced_list.append((line_spacing,second))
+            else:
+                spaced_list.append((paragraph_spacing,line))
+        return spaced_list
+
+    def render_text2(self, text, start_x, start_y, size, width):
+        paragraph_spacing = 1.0
+        line_spacing = 0.5
+        text_list = self.auto_break(text, size, width, line_spacing,
+                    paragraph_spacing, start_x)
+        current_y = start_y
+        current_x = start_x
+        for y_advance, font_size, weight, text in text_list:
+            new_y = current_y + y_advance
+            self.add(Text(text,current_x,new_y,font_size=font_size,
+                          font_weight=weight))
+            current_y = new_y
+
     def render_text(self, input_text, debug=False):
 
         from utils.text_parser import parse
-        from glyph_data import get_glyph_data
 
         lines, global_commands = parse(input_text)
         font_size = global_commands['font_size']
-        header_size = global_commands['header_size']
-        sub_header_size = global_commands['sub_header_size']
-
-        glyph_data = get_glyph_data(font_size)
-        glyphs = glyph_data['alphabet']
-        unit_per_em = glyph_data['unitsPerEm']
-        dpc = glyph_data['dpc']
-
-        header_glyphs = get_glyph_data(header_size)['alphabet']
-        sub_header_glyphs = get_glyph_data(sub_header_size)['alphabet']
-
-        paragraph_spacing = 1.0
-        line_spacing = 0.5
 
         start_x = self.start_x
         start_y = self.start_y
 
         # TODO: See if it's possible to get better splitting by using xmin/xmax.
 
-        spacing = paragraph_spacing
-        current_y = next_y = start_y
-        i = 0 # debug
-        for line in lines:
-            if line.startswith('!!'):
-                line = line[2:]
-                current_glyphs = sub_header_glyphs
-                current_font_size = sub_header_size
-            elif line.startswith('!'):
-                line = line[1:]
-                current_glyphs = header_glyphs
-                current_font_size = header_size
-            else:
-                current_glyphs = glyphs
-                current_font_size = font_size
-            space_width = float(current_glyphs[' ']['advanceWidth'])
-            current_y = next_y
-            word_buffer = []
-            end_x = start_x
-            for word in line.split(' '):
-                for char in word:
-                    old_end = end_x
-                    advance_width = float(current_glyphs[char]['advanceWidth'])
-                    end_x += advance_width
-                    if debug:
-                        color = ['red','green','blue'][i]
-                        i += 1
-                        i = i%3
-                        start = {'x': old_end,'y':current_y+0.1}
-                        end = {'x': end_x, 'y':start['y']}
-                        self.add(Line(start,end,stroke=color))
-                if end_x > self.width:
-                    end_x = start_x
-                    text = Text(' '.join(word_buffer), x=start_x,
-                                y=current_y,
-                                font_size=current_font_size)
-                    self.add(text)
-                    word_buffer = []
-                    word_buffer.append(word)
-                    for char in word:
-                        end_x += float(current_glyphs[char]['advanceWidth'])
-                        end_x += space_width
-                    current_y += line_spacing
-                    continue
-                else:
-                    word_buffer.append(word)
-                end_x += space_width
-
-            text = Text(' '.join(word_buffer), x=start_x,
-                        y=current_y, font_size=current_font_size)
-            next_y = current_y + paragraph_spacing
-            self.add(text)
+        self.render_text2(lines, start_x, start_y, font_size, self.width)
