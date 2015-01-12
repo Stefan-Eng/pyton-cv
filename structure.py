@@ -1,5 +1,5 @@
 from base_classes import NestingDoll
-from objects import Rectangle, Text
+from objects import Rectangle, Text, Style, Defs
 
 class Parent(NestingDoll):
 
@@ -10,7 +10,8 @@ class Parent(NestingDoll):
 
 class Canvas(NestingDoll):
 
-    def __init__(self, width=21, height=29.7, start_x=0, start_y=0):
+    def __init__(self, width=21, height=29.7, start_x=0, start_y=0,
+                 main_canvas=False):
 
         self.height = height
         self.width = start_x+width
@@ -18,26 +19,40 @@ class Canvas(NestingDoll):
         self.start_x = start_x
         self.start_y = start_y
 
-        xml_header = '<?xml version="1.0" standalone="no"?>'
-        doctype_start = '!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"'
-        doctype_address = '"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"'
-        doctype_header = "<{} {}>".format(doctype_start, doctype_address)
-        svg_size_info = 'width="{}cm" height="{}cm"'.format(self.width,
-                        self.height)
-        svg_style = 'xmlns="http://www.w3.org/2000/svg"'
-        svg_version = 'version="1.1"'
-        svg_header = "<svg {} {} {}>".format(svg_size_info, svg_style,
-                                              svg_version)
-        header_list = [xml_header, doctype_header, svg_header]
-        header = "\n".join(header_list)
-        footer='</svg>'
+        if main_canvas:
+            xml_header = '<?xml version="1.0" standalone="no"?>'
+            doctype_start = '!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"'
+            doctype_address = '"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"'
+            doctype_header = "<{} {}>".format(doctype_start, doctype_address)
+            svg_size_info = 'width="{}cm" height="{}cm"'.format(self.width,
+                            self.height)
+            svg_style = 'xmlns="http://www.w3.org/2000/svg"'
+            svg_version = 'version="1.1"'
+            svg_header = "<svg {} {} {}>".format(svg_size_info, svg_style,
+                                                  svg_version)
+            header_list = [xml_header, doctype_header, svg_header]
+            header = "\n".join(header_list)
+            footer='</svg>'
+        else:
+            header = footer = None
+
         NestingDoll.__init__(self, header=header, footer=footer)
 
-        background = Rectangle(self.center.x, self.center.y, self.width,
-                               self.height,fill="white",stroke="none")
-        self.corners = background.corners
-        self.sides = background.sides
-        self.add(background)
+        if main_canvas:
+            self.add(self.get_defs())
+            background = Rectangle(self.center.x, self.center.y, self.width,
+                                   self.height,fill="white",stroke="none")
+            self.corners = background.corners
+            self.sides = background.sides
+            self.add(background)
+
+    def get_defs(self):
+
+        defs = Defs()
+        style = Style('Georgia','Georgia.ttf')
+        defs.add(style)
+
+        return defs
 
     def render_text(self, input_text, debug=False):
 
