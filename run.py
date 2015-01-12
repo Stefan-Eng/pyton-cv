@@ -8,12 +8,13 @@ def main():
     debug = False
     background = Canvas(main_canvas=True)
 
-    column_width = 5
-    column_x = 4
-    column_y = 4
+    right_border = 2
 
-    right_border = 0
-    main_body_offset_x = column_width + 2
+    column_width = 5
+    column_x = 2
+    column_y = 3
+
+    main_body_offset_x = column_width + 1.5
     main_body_offset_y = 0
 
 
