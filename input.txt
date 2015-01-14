@@ -4,9 +4,11 @@
 /font_size=12
 /font_name=Georgia
 
-!Stefans awesome resume.//
+!Skills. //
 
-!!This is a subheader..//
+!!Programing Languages:
+
+!!Nested?
 
 This is a block of text
 where the linebreaks should be ignored.

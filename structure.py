@@ -80,6 +80,7 @@ class Canvas(NestingDoll):
 
         auto_broken_list = []
         for y_advancement, line in text:
+            line = line.strip()
             current_line = []
             current_length = start_x
             current_font_size, weight, line = self.check_formatting(line, font_size)
@@ -116,6 +117,9 @@ class Canvas(NestingDoll):
         for line in text_list:
             if '!/' in line:
                 line_splits = line.split('!/')
+                first_line = line_splits[0]
+                line_splits = line_splits[1:]
+                spaced_list.append((paragraph_spacing, first_line))
                 for line in line_splits:
                     spaced_list.append((line_spacing,line))
             else:
