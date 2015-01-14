@@ -115,9 +115,9 @@ class Canvas(NestingDoll):
         spacing = 0
         for line in text_list:
             if '!/' in line:
-                first, second = line.split('!/')
-                spaced_list.append((line_spacing,first))
-                spaced_list.append((line_spacing,second))
+                line_splits = line.split('!/')
+                for line in line_splits:
+                    spaced_list.append((line_spacing,line))
             else:
                 spaced_list.append((paragraph_spacing,line))
         return spaced_list
