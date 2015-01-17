@@ -57,9 +57,13 @@ class Canvas(NestingDoll):
     def check_formatting(self, line, font_size):
         heading_marker = '!'
         sub_heading_marker = '!!'
+        sub_sub_heading_marker = '!!!'
         size = font_size
         weight = None
-        if line.startswith(sub_heading_marker):
+        if line.startswith(sub_sub_heading_marker):
+            line = line.replace(sub_sub_heading_marker,'')
+            weight = 'bold'
+        elif line.startswith(sub_heading_marker):
             line = line.replace(sub_heading_marker,'')
             size = font_size + 4
             weight = 'bold'

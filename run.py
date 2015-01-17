@@ -1,6 +1,7 @@
 from structure import Parent,Canvas
 
-input_text = [line.strip() for line in open("input.txt").readlines()]
+sidebar_text = [line.strip() for line in open("sidebar.txt").readlines()]
+body_text = [line.strip() for line in open("body.txt").readlines()]
 
 
 def main():
@@ -8,7 +9,7 @@ def main():
     debug = False
     background = Canvas(main_canvas=True)
 
-    right_border = 2
+    right_border = 4
 
     column_width = 5
     column_x = 2
@@ -29,8 +30,8 @@ def main():
                        start_x=main_start_x,
                        start_y=main_start_y)
 
-    left_column.render_text(input_text)
-    main_body.render_text(input_text)
+    left_column.render_text(sidebar_text)
+    main_body.render_text(body_text)
 
     background.add(left_column)
     background.add(main_body)
