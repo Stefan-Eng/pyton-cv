@@ -109,9 +109,26 @@ class Canvas(NestingDoll):
         auto_broken_list[0] = (0, font_size, weight, first_line)
         return auto_broken_list
 
+    def get_chars(self, word):
+        char_list = []
+        unicode_tokens = []
+        for char in word:
+            try:
+                unicode(char)
+            except:
+                if unicode_tokens:
+                    unicode_tokens.append(char)
+                    char_list.append("".join(unicode_tokens))
+                    unicode_tokens = []
+                else:
+                    unicode_tokens.append(char)
+                continue
+            char_list.append(char)
+        return char_list
+
     def get_word_length(self, word, glyphs):
         size = 0
-        for char in word:
+        for char in self.get_chars(word):
             size += glyphs[char]['advanceWidth']
         return size
 
