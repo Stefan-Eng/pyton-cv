@@ -1,0 +1,45 @@
+# This is a comment, this should not appear.
+/font_size=12
+/font_name=Georgia
+
+!Skills: //
+
+!!Programing Languages:
+
+!!!Experienced: //
+  - Pyhton //
+  - Java
+
+!!!Comfortable: //
+  - BASH //
+  - LATEX //
+  - C //
+  - Javascript
+
+!!!Beginner: //
+  - Haskell //
+  - Matlab //
+  - C++ //
+  - VisaulBasic
+
+
+!!Environments: //
+!!! Experienced: //
+  - Linux (Arch, Ubuntu)
+
+!!! Comfortable: //
+  - Windows (XP,Vista,7)
+
+!!! Beginner: //
+  - Unix (Solaris)
+
+
+!Links: //
+  - Github://s-eng
+
+
+!Education: //
+  - 2 years, Datateknik, LTH //
+  Duration: (2013 - ongoing) //
+  - 4 years, Teknisk Nanovetenskap, LTH //
+  Duration: (2008 - 2014)

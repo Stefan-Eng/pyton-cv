@@ -1,0 +1,40 @@
+/font_size=12
+/font_name=Georgia
+
+!Experience: //
+
+!!AXIS-Lund
+| Consultant Programmer://
+!!!Work-situation: In-house.//
+!!!Duration: April 2014 - Present.//
+The assigned work consists of maintaining and extending a python back end script
+and its corresponding viewer.
+The back end extracts information about different internal product
+platforms which is then displayed in the web based viewer which makes heavy
+use of JavaScript.
+
+
+!!EkoVent-Vellinge
+| Consultant Programmer://
+!!!Work-situation: Telecommute.//
+!!!Duration: September 2014 - Present. //
+The second assigned project focuses on storage of additional information
+and the display of gathered data from testing equipment.
+As with the previous project everything is done in VisualBasic inside of
+Microsoft Excel.
+
+
+!!EkoVent-Vellinge
+| Consultant Programmer://
+!!!Work-situation: Telecommute.//
+!!!Duration: April - June - 2014. //
+The task was to update and extend a Microsoft Excel spreadsheet through
+VisualBasic programming. The sought after functionality was two-fault;
+additional sanity checks for entered values and storage of said values.
+
+
+!!Dresser Wayne AB-Malmö
+| Customer Support://
+!!!Work-situation: In-house.//
+!!!Duration: June - November - 2013.//
+The work
