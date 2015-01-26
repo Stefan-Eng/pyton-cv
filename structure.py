@@ -89,9 +89,14 @@ class Canvas(NestingDoll):
             current_length = start_x
             current_font_size, weight, line = self.check_formatting(line, font_size)
             glyphs, space_width = keeper.get_glyphs(font_size)
-            for word in line.split(' '):
+            words = line.split(' ')
+            last_word = words[-1]
+            for word in words:
                 word_length = self.get_word_length(word, glyphs)
-                new_length = current_length+word_length+space_width
+                if word == last_word:
+                    new_length = current_length+word_length
+                else:
+                    new_length = current_length+space_width+word_length
                 if new_length > width:
                     auto_broken_list.append((y_advancement,current_font_size,
                                             weight,' '.join(current_line)))
