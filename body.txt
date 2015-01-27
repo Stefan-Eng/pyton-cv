@@ -1,40 +1,53 @@
-/font_size=12
+/font_size=11
 /font_name=Georgia
 
 !Experience: //
 
-!!AXIS-Lund
-| Consultant Programmer://
-!!!Work-situation: In-house.//
+!!AXIS | Consultant Programmer://
+!!!Location: Lund, In-house.//
 !!!Duration: April 2014 - Present.//
-The assigned work consists of maintaining and extending a python back end script
+The assigned work consists of maintaining and extending a Python back end script
 and its corresponding viewer.
 The back end extracts information about different internal product
-platforms which is then displayed in the web based viewer which makes heavy
+platforms. This information is the displayed in the web based viewer which makes heavy
 use of JavaScript.
 
 
-!!EkoVent-Vellinge
-| Consultant Programmer://
-!!!Work-situation: Telecommute.//
+!!EkoVent | Consultant Programmer://
+!!!Location: Vellinge, Telecommute.//
 !!!Duration: September 2014 - Present. //
 The second assigned project focuses on storage of additional information
 and the display of gathered data from testing equipment.
-As with the previous project everything is done in VisualBasic inside of
+As with the earlier EcoVent project, everything is done in VisualBasic inside of
 Microsoft Excel.
 
 
-!!EkoVent-Vellinge
-| Consultant Programmer://
-!!!Work-situation: Telecommute.//
+!!EkoVent | Consultant Programmer://
+!!!Location: Vellinge, Telecommute.//
 !!!Duration: April - June - 2014. //
 The task was to update and extend a Microsoft Excel spreadsheet through
-VisualBasic programming. The sought after functionality was two-fault;
-additional sanity checks for entered values and storage of said values.
+VisualBasic programming. The main goals were to provide additional sanity checks for entered values
+and storage of said values.
 
 
-!!Dresser Wayne AB-Malmö
-| Customer Support://
-!!!Work-situation: In-house.//
+!!Dresser Wayne AB | Customer Support://
+!!!Location: Malmö, In-house.//
 !!!Duration: June - November - 2013.//
-The work
+The assignment had two major parts.
+First, managing the customer support queries for Scandinavian customers.
+Secondly, enter orders from the online sales system into the production database by hand.
+To ease a time consuming step of the input process, I crafted a small program
+and shared it with the team. Seeing my colleagues use my software to avoid frustration is what made me change
+my master. //
+
+!References: //
+
+!! Sven Svensson | Svensson AB. //
+!!! Title: Manager1.  //
+!!! Phone: +46 111 11 11 11//
+!!! Email: sven.svensson@svensson.se //
+
+!! Sven Svensson | Svensson AB. //
+!!! Title: Manager2.  //
+!!! Phone: +46 111 11 11 11//
+!!! Email: sven.svensson@svensson.se //
