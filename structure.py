@@ -100,7 +100,7 @@ class Canvas(NestingDoll):
                 if new_length > width:
                     auto_broken_list.append((y_advancement,current_font_size,
                                             weight,' '.join(current_line)))
-                    current_length = start_x
+                    current_length = start_x + word_length
                     y_advancement=line_spacing
                     current_line = []
                     current_line.append(word)
