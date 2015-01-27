@@ -2,7 +2,7 @@
 
 from structure import Canvas
 
-letter_text = [line.strip() for line in open("personligt_brev.txt").readlines()]
+letter_text = [line.strip() for line in open("data/personligt_brev.txt").readlines()]
 
 background = Canvas(main_canvas=True)
 

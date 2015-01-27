@@ -210,7 +210,7 @@ def get_alphabet(glyph_dict):
 
 def get_glyph_data(font_size):
 
-    with open("Georgia.ttf", 'r') as filehandler:
+    with open("data/Georgia.ttf", 'r') as filehandler:
 
         table_metadata = get_table_metadata(filehandler)
 

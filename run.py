@@ -2,10 +2,10 @@
 
 from structure import Canvas
 
-sidebar_text = [line.strip() for line in open("sidebar.txt").readlines()]
-body_text = [line.strip() for line in open("body.txt").readlines()]
-title_text = [line.strip() for line in open("title.txt").readlines()]
-subtitle_text = [line.strip() for line in open("subtitle.txt").readlines()]
+sidebar_text = [line.strip() for line in open("data/sidebar.txt").readlines()]
+body_text = [line.strip() for line in open("data/body.txt").readlines()]
+title_text = [line.strip() for line in open("data/title.txt").readlines()]
+subtitle_text = [line.strip() for line in open("data/subtitle.txt").readlines()]
 
 
 def main():
