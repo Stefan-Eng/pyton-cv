@@ -14,10 +14,10 @@ product release cycles.
 !!AXIS | Consultant Programmer://
 !!!Location: Lund, In-house.//
 !!!Duration: April 2014 - June 2016, Part-Time.//
-Task consisted of maintaining and expanding a internal tool for gathering
-product data, written in Python. In the later stages of the project, the
-JavaScript based front end was scrapped and the tool was heavily refactored for Jenkins
-integration.
+Task consisted of maintaining and expanding a internal tool for gathering and
+displaying product data, written in Python and HTML/JavaScript. In the later
+stages of the project, the web-based front end was scrapped and the tool was
+heavily refactored for Jenkins integration.
 
 
 !!EkoVent | Consultant Programmer://
