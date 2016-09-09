@@ -6,7 +6,7 @@
 !!AXIS | Consultant Programmer://
 !!!Location: Lund, In-house.//
 !!!Duration: June 2016 - ongoing, Part-Time.//
-Current task involves building a internal web-application with Python and
+Current task involves building an internal web-application with Python and
 Django to facilitate a more streamlined workflow for Axis product notes during
 product release cycles.
 
