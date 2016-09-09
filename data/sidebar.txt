@@ -24,7 +24,7 @@
 
 !!Environments: //
 !!! Experienced: //
-  - Linux (Arch, Ubuntu)
+  - Linux (Arch, Ubuntu, Debian)
 
 !!! Comfortable: //
   - Windows (XP, Vista, 7)
@@ -33,12 +33,23 @@
   - Unix (Solaris)
 
 
+!!Tools: //
+!!! Experienced: //
+  - Vim //
+  - Git
+
+!!! Comfortable: //
+  - Eclipse
+
+!!! Beginner: //
+  - VisualStudio
+
+
 !Links: //
-  - Github://s-eng
+  - Github://stefan-eng
 
 
 !Education: //
-  - 2 years, Computer Science, LTH //
+  - 3 years, Computer Science, LTH //
   Duration: (2013 - ongoing) //
   - 4 years, Nanoscience, LTH //
-  Duration: (2008 - 2014)

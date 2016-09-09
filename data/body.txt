@@ -5,40 +5,41 @@
 
 !!AXIS | Consultant Programmer://
 !!!Location: Lund, In-house.//
-!!!Duration: April 2014 - Present.//
-The assigned work consists of maintaining and extending a Python back end script
-and its corresponding viewer.
-The back end extracts information about different internal product
-platforms. This information is the displayed in the web based viewer which makes heavy
-use of JavaScript.
+!!!Duration: June 2016 - ongoing, Part-Time.//
+Current task involves building a internal web-application with Python and
+Django to facilitate a more streamlined workflow for Axis product notes during
+product release cycles.
+
+
+!!AXIS | Consultant Programmer://
+!!!Location: Lund, In-house.//
+!!!Duration: April 2014 - June 2016, Part-Time.//
+Task consisted of maintaining and expanding a internal tool for gathering
+product data, written in Python. In the later stages of the project, the
+JavaScript based front end was scrapped and the tool was heavily refactored for Jenkins
+integration.
 
 
 !!EkoVent | Consultant Programmer://
 !!!Location: Vellinge, Telecommute.//
-!!!Duration: September 2014 - Present. //
-The second assigned project focuses on storage of additional information
-and the display of gathered data from testing equipment.
-As with the earlier EcoVent project, everything is done in VisualBasic inside of
-Microsoft Excel.
+!!!Duration: September - November 2014, Part-time.//
+The second project focused on the gathering, storage and display of additional
+information from the production floor testing equipment.  As with the earlier
+EcoVent project, everything was done in VisualBasic inside of Microsoft Excel.
+
+#The second assigned project focuses on storage of additional information
+#and the display of gathered data from testing equipment.
+#As with the earlier EcoVent project, everything is done in VisualBasic inside of
+#Microsoft Excel.
 
 
 !!EkoVent | Consultant Programmer://
 !!!Location: Vellinge, Telecommute.//
-!!!Duration: April - June - 2014. //
+!!!Duration: April - June - 2014, Part-time. //
 The task was to update and extend a Microsoft Excel spreadsheet through
 VisualBasic programming. The main goals were to provide additional sanity checks for entered values
 and storage of said values.
 
-
-!!Dresser Wayne AB | Customer Support://
-!!!Location: Malmö, In-house.//
-!!!Duration: June - November - 2013.//
-The assignment had two major parts.
-First, managing the customer support queries for Scandinavian customers.
-Secondly, enter orders from the online sales system into the production database by hand.
-To ease a time consuming step of the input process, I crafted a small program
-and shared it with the team. Seeing my colleagues use my software to avoid frustration is what made me change
-my master. //
 
 !References: //
 
