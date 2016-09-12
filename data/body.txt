@@ -7,8 +7,8 @@
 !!!Location: Lund, In-house.//
 !!!Duration: June 2016 - ongoing, Part-Time.//
 Current task involves building an internal web-application with Python and
-Django, to facilitate a more streamlined workflow for Axis product notes during
-product release cycles.
+Django. The goal of the application is to facilitate a more streamlined
+workflow for Axis product notes during product release cycles.
 
 
 !!AXIS | Consultant Programmer://
