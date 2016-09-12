@@ -12,14 +12,15 @@
 !!!Comfortable: //
   - BASH //
   - C //
-  - JavaScript
+  - JavaScript //
   - LATEX //
   - VisualBasic
 
 !!!Beginner: //
   - C++ //
   - Haskell //
-  - Matlab //
+  - Matlab
+
 
 !!Environments: //
 !!! Experienced: //
