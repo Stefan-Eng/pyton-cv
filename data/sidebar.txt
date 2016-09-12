@@ -11,16 +11,15 @@
 
 !!!Comfortable: //
   - BASH //
-  - LATEX //
   - C //
   - JavaScript
-
-!!!Beginner: //
-  - Haskell //
-  - Matlab //
-  - C++ //
+  - LATEX //
   - VisualBasic
 
+!!!Beginner: //
+  - C++ //
+  - Haskell //
+  - Matlab //
 
 !!Environments: //
 !!! Experienced: //
@@ -31,7 +30,6 @@
 
 !!! Beginner: //
   - Unix (Solaris)
-
 
 !!Tools: //
 !!! Experienced: //

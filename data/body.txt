@@ -7,7 +7,7 @@
 !!!Location: Lund, In-house.//
 !!!Duration: June 2016 - ongoing, Part-Time.//
 Current task involves building an internal web-application with Python and
-Django to facilitate a more streamlined workflow for Axis product notes during
+Django, to facilitate a more streamlined workflow for Axis product notes during
 product release cycles.
 
 
@@ -43,12 +43,12 @@ and storage of said values.
 
 !References: //
 
-!! Sven Svensson | Svensson AB. //
-!!! Title: Manager1.  //
+!! Sven Svensson | Svensson AB //
+!!! Title: Manager1  //
 !!! Phone: +46 111 11 11 11//
 !!! Email: sven.svensson@svensson.se //
 
-!! Sven Svensson | Svensson AB. //
-!!! Title: Manager2.  //
+!! Sven Svensson | Svensson AB //
+!!! Title: Manager2  //
 !!! Phone: +46 111 11 11 11//
 !!! Email: sven.svensson@svensson.se //
